@@ -13,16 +13,18 @@ def main():
 
     # make objects for ultrasonic sensors
     # parameters are pin numbers for trigger and echo
-    us1 = Ultrasonic(3, 2)
+    us1 = Ultrasonic(2, 3)
     us2 = Ultrasonic(10, 9)
 
     # make objects for traffic lights
     # parameters are pin numbers of red, orange, green lights respecively
-    tl1 = TrafficLight(27, 17, 4)
-    tl2 = TrafficLight(13, 6, 5)
+    tl1 = TrafficLight(26, 19, 13)
+    tl2 = TrafficLight(16, 20, 21)
 
     # turn route 1 on first
     tl1.go()
+
+    print("Traffic light 1 is active")
 
     while True:
         # wait for the signal that we should switch to route 2
