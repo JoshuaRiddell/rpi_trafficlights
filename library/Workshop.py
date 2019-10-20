@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import time
 
 def setup():
     # setup rpi gpio global settings
@@ -46,6 +47,9 @@ class Ultrasonic(object):
         GPIO.setup(self.trigger, GPIO.OUT)
         GPIO.setup(self.echo, GPIO.IN)
 
+        # half a second timeout
+        self.timeout = 0.3
+
     def read_cm(self):
         """Send a pulse down the trigger line. Busywait for a pulse coming
         back on the echo line. Based on that pulse length, calculate sensor
@@ -61,9 +65,13 @@ class Ultrasonic(object):
         stop = 0
 
         # measure return pulse
-        while GPIO.input(self.echo) == 0:
+        trigger = time.time()
+        while GPIO.input(self.echo) == 0 \
+              and (time.time() - trigger) < self.timeout:
             start = time.time()
-        while GPIO.input(self.echo) == 1:
+
+        while GPIO.input(self.echo) == 1 \
+              and (time.time() - trigger) < self.timeout:
             stop = time.time()
 
         # calculate distance

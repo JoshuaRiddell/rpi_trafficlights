@@ -1,17 +1,12 @@
 #!/usr/bin/env python
 
-from lib.Ultrasonic import Ultrasonic
-from lib.Outputs import setup
-
-import RPi.GPIO as GPIO
+from Workshop import Ultrasonic, TrafficLight
 import time
 
 # threshold for when a car is considered present in front of the sensor
 THRESH = 20
  
 def main():
-    setup()
-
     # make objects for ultrasonic sensors
     # parameters are pin numbers for trigger and echo
     us1 = Ultrasonic(2, 3)
