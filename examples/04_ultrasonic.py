@@ -21,6 +21,9 @@ time.sleep(0.0001)
 GPIO.output(trigger, False)
 
 # measure the pulse length of the reply
+start = time.time()
+end = time.time()
+
 while GPIO.input(echo) == 0:
     start = time.time()
 while GPIO.input(echo) == 1:
