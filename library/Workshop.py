@@ -1,8 +1,11 @@
+# this file contains simple helpers for ultrasonic and traffic lights
+
 import RPi.GPIO as GPIO
 import time
 
 def setup():
-    # setup rpi gpio global settings
+    """Setup function for rpi gpio. Automatically called on import of this file."""
+
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
 
@@ -37,6 +40,10 @@ class TrafficLight(object):
         GPIO.output(self.red, True)
 
 class Ultrasonic(object):
+    """An ultrasonic sensor controlled by Raspberry Pi GPIO. This class
+    robustly calculates the distance of an object from the sensor.
+    """
+
     speed_of_sound = 34300  # cm/s
 
     def __init__(self, trigger, echo):
@@ -47,11 +54,11 @@ class Ultrasonic(object):
         GPIO.setup(self.trigger, GPIO.OUT)
         GPIO.setup(self.echo, GPIO.IN)
 
-        # half a second timeout
+        # half a second timeout when reading pulse length
         self.timeout = 0.3
 
     def read_cm(self):
-        """Send a pulse down the trigger line. Busywait for a pulse coming
+        """Send a pulse down the trigger line. Poll for a pulse coming
         back on the echo line. Based on that pulse length, calculate sensor
         distance reading. If reading is out of reasonable bounds, return None.
         """
@@ -61,11 +68,12 @@ class Ultrasonic(object):
         time.sleep(0.0001)
         GPIO.output(self.trigger, False)
 
-        start = 0
-        stop = 0
-
-        # measure return pulse
+        # initialise timer values
         trigger = time.time()
+        start = time.time()
+        stop = time.time()
+
+        # measure length of return pulse
         while GPIO.input(self.echo) == 0 \
               and (time.time() - trigger) < self.timeout:
             start = time.time()
@@ -75,11 +83,11 @@ class Ultrasonic(object):
             stop = time.time()
 
         # calculate distance
-        diff = stop - start
-        dist = (diff * self.speed_of_sound) / 2
+        pulse_length = stop - start
+        dist = (pulse_length * self.speed_of_sound) / 2
 
         # basic error checking on distance value
-        if dist < 5 or dist > 100:
+        if dist < 5 or dist > 150:
             dist = None
 
         return dist

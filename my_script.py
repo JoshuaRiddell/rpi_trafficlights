@@ -1,4 +1,4 @@
-from Workshop import setup, Ultrasonic, TrafficLight
+from Workshop import Ultrasonic, TrafficLight
 
 def main():
     ## YOUR CODE STARTS HERE
