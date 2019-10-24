@@ -56,6 +56,7 @@ class Ultrasonic(object):
 
         # half a second timeout when reading pulse length
         self.timeout = 0.3
+        self.history = [999] * 5;
 
     def read_cm(self):
         """Send a pulse down the trigger line. Poll for a pulse coming
@@ -89,6 +90,12 @@ class Ultrasonic(object):
         # basic error checking on distance value
         if dist < 5 or dist > 150:
             dist = None
+
+        # average last N measurements
+        if dist is not None:
+            self.history.pop(0)
+            self.history.append(dist)
+            return sum(self.history)/len(self.history)
 
         return dist
 
