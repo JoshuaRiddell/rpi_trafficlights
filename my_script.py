@@ -1,4 +1,6 @@
-from Workshop import Ultrasonic, TrafficLight
+import Workshop
+import RPi.GPIO as GPIO
+import time
 
 def main():
     ## YOUR CODE STARTS HERE
