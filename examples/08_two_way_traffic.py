@@ -11,7 +11,7 @@ def main():
     # make objects for ultrasonic sensors
     # parameters are pin numbers for trigger then echo
     us1 = Ultrasonic(2, 3)
-    us2 = Ultrasonic(10, 9)
+    us2 = Ultrasonic(17, 27)
 
     # make objects for traffic lights
     # parameters are pin numbers of red, orange, green lights in order
