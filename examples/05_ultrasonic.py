@@ -35,6 +35,7 @@ while True:
     dist = (pulse_length * speed_of_sound) / 2
 
     # print out information
+    print("------------------------------------------")
     print("Pulse length was", pulse_length, "seconds")
     print("Distance was", dist, "cm")
 

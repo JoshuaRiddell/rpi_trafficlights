@@ -4,16 +4,6 @@ import time
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-# set which pin number we used for the lights
-light_red = 26
-light_yellow = 19
-light_green = 13
-
-# setup the pins as an output
-GPIO.setup(light_red, GPIO.OUT)
-GPIO.setup(light_yellow, GPIO.OUT)
-GPIO.setup(light_green, GPIO.OUT)
-
 def red_light_on():
     # turn the light on
     GPIO.output(light_red, True)
@@ -37,6 +27,16 @@ def green_light_on():
 def green_light_off():
     # turn the light off
     GPIO.output(light_green, False)
+
+# set which pin number we used for the lights
+light_red = 26
+light_yellow = 19
+light_green = 13
+
+# setup the pins as an output
+GPIO.setup(light_red, GPIO.OUT)
+GPIO.setup(light_yellow, GPIO.OUT)
+GPIO.setup(light_green, GPIO.OUT)
 
 # turn all the lights on
 red_light_on()

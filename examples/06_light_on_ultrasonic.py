@@ -4,22 +4,6 @@ import time
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-# set a value for the speed of sound
-speed_of_sound = 34300  # cm/s
-
-# set which pin number we used for the ultrasonic pins
-trigger = 2
-echo = 3
-light_red = 26
-
-# setup the pin as an output
-GPIO.setup(light_red, GPIO.OUT)
-
-# setup the pins to their modes
-GPIO.setup(trigger, GPIO.OUT)
-GPIO.setup(echo, GPIO.IN)
-
-
 def light_on():
     # turn the light on
     GPIO.output(light_red, True)
@@ -49,13 +33,31 @@ def read_cm():
     
     return dist
 
+# set a value for the speed of sound
+speed_of_sound = 34300  # cm/s
+
+# set which pin number we used for the ultrasonic pins
+trigger = 2
+echo = 3
+light_red = 26
+
+# setup the pin as an output
+GPIO.setup(light_red, GPIO.OUT)
+
+# setup the pins to their modes
+GPIO.setup(trigger, GPIO.OUT)
+GPIO.setup(echo, GPIO.IN)
 
 while True:
+    # read ultrasonic and print the current value
     dist = read_cm()
     print(dist)
+
+    # check if we are below our distance threshold
     if dist < 20:
         light_on()
     else:
         light_off()
 
+    # sleep for a bit to allow everything to settle
     time.sleep(0.05)

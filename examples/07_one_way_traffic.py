@@ -22,6 +22,7 @@ def main():
 
     while True:
 
+        # wait for the ultrasonic distance to read below the threshold
         while True:
             distance = us.read_cm()
 
